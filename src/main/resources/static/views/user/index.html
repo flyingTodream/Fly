@@ -9,18 +9,19 @@
 	});
 </script>
 <div class="layui-fluid">
-  <div class="layui-row">
-    <div class="layui-col-xs12">
-      <div class="layui-card">
-        <div class="layui-card-header">
-          <a href="#/user/create" id="insert" class="layui-btn layui-btn-sm"><i class="layui-icon">&#xe654;</i> 新增</a>
-        </div>
-        <div class="layui-card-body">
-         <table id="demo_hash" lay-filter="test"></table>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="layui-row">
+		<div class="layui-col-xs12">
+			<div class="layui-card">
+				<div class="layui-card-header">
+					<a href="#/user/create" id="insert" class="layui-btn layui-btn-sm"><i
+						class="layui-icon">&#xe654;</i> 新增</a>
+				</div>
+				<div class="layui-card-body">
+					<table id="demo_hash" lay-filter="test"></table>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <script>
 layui.config({
@@ -39,27 +40,28 @@ layui.config({
       },
       limit: 10,
       elem: '#demo_hash',
-      height: 520,
-      data:{
-    	  muenId:data.mid
-      },
-      url: '/getArticle?muenId='+data.mid, //数据接口
+      height: 480,
+      url: '/GetArticleList?muenId='+data.mid, //数据接口
       page: true, //开启分页
       cols: [
         [ //表头
           {
-            field: 'id',
+            field: 'title',
             title: '标题',
-            width: 900,
+            width: 800,
             fixed: 'center'
           }, {
             field: 'menuName',
             title: '分类',
             width: 100
           }, {
-            field: 'insertTime',
+            field: 'Time',
             title: '时间',
-            width: 100
+            width: 100,
+            templet: function(d){
+            	console.log(d);
+            	return d.insertTime;
+            }
           }
         ]
       ]
@@ -67,5 +69,4 @@ layui.config({
   });
 </script>
 <style scoped>
-
 </style>

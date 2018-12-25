@@ -5,32 +5,32 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 public class RedisUtils {
-//·þÎñÆ÷IPµØÖ·
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½IPï¿½ï¿½Ö·
     private static String ADDR = "127.0.0.1";
 
-//¶Ë¿Ú
+//ï¿½Ë¿ï¿½
     private static int PORT = 6379;
-//ÃÜÂë
+//ï¿½ï¿½ï¿½ï¿½
     private static String AUTH = "123456";
-//Á¬½ÓÊµÀýµÄ×î´óÁ¬½ÓÊý
+//ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     private static int MAX_ACTIVE = 1024;
 
-//¿ØÖÆÒ»¸öpool×î¶àÓÐ¶àÉÙ¸ö×´Ì¬Îªidle(¿ÕÏÐµÄ)µÄjedisÊµÀý£¬Ä¬ÈÏÖµÒ²ÊÇ8¡£
+//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½poolï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ù¸ï¿½×´Ì¬Îªidle(ï¿½ï¿½ï¿½Ðµï¿½)ï¿½ï¿½jedisÊµï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ÖµÒ²ï¿½ï¿½8ï¿½ï¿½
  private static int MAX_IDLE = 200;
 
-    //µÈ´ý¿ÉÓÃÁ¬½ÓµÄ×î´óÊ±¼ä£¬µ¥Î»ºÁÃë£¬Ä¬ÈÏÖµÎª-1£¬±íÊ¾ÓÀ²»³¬Ê±¡£Èç¹û³¬¹ýµÈ´ýÊ±¼ä£¬ÔòÖ±½ÓÅ×³öJedisConnectionException
+    //ï¿½È´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä£¬ï¿½ï¿½Î»ï¿½ï¿½ï¿½ë£¬Ä¬ï¿½ï¿½ÖµÎª-1ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½Ê±ï¿½ä£¬ï¿½ï¿½Ö±ï¿½ï¿½ï¿½×³ï¿½JedisConnectionException
     private static int MAX_WAIT = 10000;
 
-//Á¬½Ó³¬Ê±µÄÊ±¼ä¡¡¡¡
+//ï¿½ï¿½ï¿½Ó³ï¿½Ê±ï¿½ï¿½Ê±ï¿½ä¡¡ï¿½ï¿½
     private static int TIMEOUT = 10000;
 
-// ÔÚborrowÒ»¸öjedisÊµÀýÊ±£¬ÊÇ·ñÌáÇ°½øÐÐvalidate²Ù×÷£»Èç¹ûÎªtrue£¬ÔòµÃµ½µÄjedisÊµÀý¾ùÊÇ¿ÉÓÃµÄ£»
+// ï¿½ï¿½borrowÒ»ï¿½ï¿½jedisÊµï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½validateï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªtrueï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½jedisÊµï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ÃµÄ£ï¿½
     private static boolean TEST_ON_BORROW = true;
 
     private static JedisPool jedisPool = null;
 
     /**
-     * ³õÊ¼»¯RedisÁ¬½Ó³Ø
+     * ï¿½ï¿½Ê¼ï¿½ï¿½Redisï¿½ï¿½ï¿½Ó³ï¿½
      */
 
     static {
@@ -51,7 +51,7 @@ public class RedisUtils {
     }
 
     /**
-     * »ñÈ¡JedisÊµÀý
+     * ï¿½ï¿½È¡JedisÊµï¿½ï¿½
      */
 
     public synchronized static Jedis getJedis() {
@@ -74,17 +74,7 @@ public class RedisUtils {
 
     /***
      * 
-     * ÊÍ·Å×ÊÔ´
+     * ï¿½Í·ï¿½ï¿½ï¿½Ô´
      */
-    
-    public static void returnResource(final Jedis jedis) {
-            if(jedis != null) {
-                jedisPool.returnResource(jedis);
-            }
-        
-    }
-    public static void main(String[] args) {
-    	Jedis j = getJedis();
-    	
-	}
+ 
 }

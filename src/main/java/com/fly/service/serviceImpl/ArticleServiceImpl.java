@@ -35,6 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
 		PageInfo<Object> info = new PageInfo<>(page.getResult());
 		json.put("pages", info.getPages());
 		json.put("code", 0);
+		json.put("count", info.getTotal());
 		return json;
 	}
 
