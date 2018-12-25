@@ -1,0 +1,39 @@
+<div class="layui-fluid">
+  <div class="layui-row">
+    <div class="layui-col-xs12">
+      <div class="layui-card">
+        <div class="layui-card-header">
+          <span class="layui-breadcrumb">
+            <a href="/">首页</a>
+            <a href="#/MySql">MySql</a>
+            <a href="#/baidu"><cite>导航元素</cite></a>
+          </span>
+        </div>
+        <div class="layui-card-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  layui.use('element', function() {
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+    console.log(element);
+    element.init();
+
+    //监听导航点击
+    element.on('nav(demo_hash)', function(elem) {
+      //console.log(elem)
+      layer.msg(elem.text());
+    });
+  });
+  var  router = layui.jquery;
+  //var $ = layui.jquery;
+  console.log(router);
+</script>
+
+<style scoped>
+
+</style>

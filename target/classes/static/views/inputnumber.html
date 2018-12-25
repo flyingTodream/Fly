@@ -1,0 +1,53 @@
+<div class="layui-fluid">
+  <div class="layui-row">
+    <div class="layui-col-xs12">
+      <div class="layui-card">
+        <div class="layui-card-header">
+          <span class="layui-breadcrumb">
+            <a href="/">首页</a>
+            <a href="/demo_hash/">演示</a>
+            <a><cite>inputnumber</cite></a>
+          </span>
+        </div>
+        <div class="layui-card-body">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--
+<div class="layui-fluid">
+  <div class="layui-row">
+    <div class="layui-col-xs12">
+      <input type="text" class="layui-input kit-in" kit-in-precision="1" value="1" style="width:135px;" kit-target="inputnumber" max="100" min="0" />
+    </div>
+    <div class="layui-col-xs12">
+      <input type="text" class="layui-input kit-in" kit-in-precision="5" kit-in-type="double"  value="1" style="width:100px;" kit-target="inputnumber" max="100" min="0" />
+    </div>
+  </div>
+</div>
+-->
+<script>
+    layui.use('element', function() {
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+    element.init();
+
+    //监听导航点击
+    element.on('nav(demo_hash)', function(elem) {
+      //console.log(elem)
+      layer.msg(elem.text());
+    });
+  });
+  layui.config({
+    base: '/js/'
+  }).use(['inputnumber'], function() {
+    layui.inputnumber.set({
+      onClicked: function(data) {
+        console.log(data);
+      }
+    }).render();
+  });
+</script>
+<style scoped>
+
+</style>

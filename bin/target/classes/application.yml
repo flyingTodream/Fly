@@ -1,0 +1,51 @@
+server:
+  port: 80
+  servlet:
+    session:
+      timeout: 60s
+  maxHttpHeaderSize: 102400
+  maxHttpPostSize: 102400
+spring:
+    datasource:
+        name: test
+        url: jdbc:mysql://127.0.0.1:3306/fly?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        username: root
+        password: root
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+  
+eureka:
+ client:
+  register-with-eureka: false
+  fetch-registry: false     
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.fly.model
+
+logging:
+  level: 
+    java.sql: debug
+    com.apache.ibatis: debug
+    com.fly.mapper: debug
+endpoints:
+ shutdown:
+  enabled: true
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql

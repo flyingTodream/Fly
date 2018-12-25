@@ -1,0 +1,69 @@
+<div class="layui-fluid">
+	<div class="layui-row">
+		<div class="layui-col-xs12">
+			<div class="layui-card">
+				<div class="layui-card-header">
+					<span class="layui-breadcrumb"> <a href="/">首页</a> <a
+						href="/demo_hash/">演示</a> <a><cite>导航元素</cite></a>
+					</span>
+				</div>
+				<div class="layui-card-body">
+
+					<ul id="demo">
+						<li>1</li>
+						<li>2</li>
+						<li>6</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+  layui.use('element', function() {
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+    console.log(element);
+    element.init();
+
+    //监听导航点击
+    element.on('nav(demo_hash)', function(elem) {
+      //console.log(elem)
+      layer.msg(elem.text());
+    });
+  });
+  
+  var device = layui.device();
+  console.log(device);
+  
+  
+  layui.use('flow', function(){
+	  var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+	  var flow = layui.flow;
+	  flow.load({
+	    elem: '#demo' //指定列表容器
+	    ,
+	    isAuto: true,
+	    isLazyimg: true,
+	    done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+	      var lis = [];
+	      //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+	      $.get('table?page='+page, function(res){
+	    	   //假设你的列表返回在data集合中
+	        layui.each(res.data, function(index, item){
+	        	
+	          lis.push('<li>'+ item.id +'</li>');
+	        }); 
+	        
+	        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+	        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+	        next(lis.join(''), page < res.pages);    
+	      });
+	    }
+	  });
+	});
+</script>
+
+<style scoped>
+</style>

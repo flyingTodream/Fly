@@ -1,0 +1,96 @@
+<script type="text/javascript">
+$ = layui.jquery;
+$(function(){
+	  var layer=layui.layer;	
+	  var router = layui.router();
+	  var data = getParams(router.href); 
+	$.get('/GetMenuName',data ,function(res){
+		$('#menu').text(res.name);
+	});
+	
+	$.post('/GetArticleDetail',data ,function(res){
+		console.log(res);
+		alert(res.menuName);
+		$('.title').text(res.title);
+		$('.time').text(res.insertTime);
+		$('.auther').text(res.auther);
+		$('.m122').text(res.menuName);
+		$('.lay-article').text(res.content);
+	});
+	
+});
+
+</script>
+<div class="layui-fluid">
+	<div class="layui-row">
+		<div class="layui-col-xs12">
+			<div class="layui-card">
+				<div class="layui-card-header">
+					<span class="layui-breadcrumb"> <a href="/">首页</a> <a
+						href="javascript:;" id="menu"></a> <a href="javascript:;"><cite>DETAIL</cite></a>
+					</span>
+				</div>
+				<div class="layui-card-body">
+					<div class="lay-content">
+						<center>
+							<p class="title"></p>
+						</center>
+						<div class="lay-msg">
+							<span class="lay-fa">时间：<span id="lkjh" class="time"></span></span> <span
+								class="lay-fa">作者：<span class="auther"></span></span> 
+								<span class="lay-fa" >分类：<span class='m122'></span>
+						</div>
+						<div class="lay-article">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+  layui.use('element', function() {
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+    console.log(element);
+    element.init();
+
+    //监听导航点击
+    element.on('nav(demo_hash)', function(elem) {
+      //console.log(elem)
+      layer.msg(elem.text());
+    });
+  });
+  var  router = layui.jquery;
+  //var $ = layui.jquery;
+  console.log(router);
+</script>
+
+<style scoped>
+.title {
+margin:0 auto;
+	font-size: 16px;
+	width: 750px;
+}
+
+.lay-fa {
+	margin-left: 15%;
+}
+
+.lay-msg {
+	width: 60%;
+	margin: 0 auto;
+	min-width: 342px;
+	margin-top: 5px;
+	color: #888 !important;
+}
+.lay-article{
+	margin-top: 25px;
+	margin:0 auto;
+	width: 1000px;
+}
+.lay-content {
+	min-width: 1000px;
+}
+</style>
