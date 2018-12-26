@@ -9,7 +9,7 @@
     <result column="insert_time" property="insertTime" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
     <result column="browse_times" property="browseTimes" jdbcType="INTEGER" />
-  <result column="menuName" property="menuName" jdbcType="VARCHAR" />
+  <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
  </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.fly.model.Article" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -22,7 +22,7 @@
   </sql>
   <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
     select 
-     t.id, t.muen_id, m.name menuName ,  t.title, t.auther, t.insert_time, t.update_time, t.browse_times,
+     t.id, t.muen_id, m.name menu_name ,  t.title, t.auther, t.insert_time, t.update_time, t.browse_times,
     t.content from article t left join menu m 
     on m.menu_id = t.muen_id
     where t.id = #{id,jdbcType=VARCHAR}
@@ -146,7 +146,7 @@
 	<select id="selectList" resultMap="ResultMapWithBLOBs"
 		parameterType="com.fly.model.Article">
 		select
-	 t.id, t.muen_id, m.name menuName ,  t.title, t.auther, t.insert_time, t.update_time, t.browse_times,
+	 t.id, t.muen_id, m.name menu_name ,  t.title, t.auther, t.insert_time, t.update_time, t.browse_times,
     t.content from article t left join menu m 
     on m.menu_id = t.muen_id
 		<where>

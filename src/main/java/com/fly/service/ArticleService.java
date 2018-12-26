@@ -8,6 +8,8 @@ import com.fly.model.Article;
 
 public interface ArticleService {
 	
+	int deleteByPrimaryKey(String id);
+	
 	JSONObject selectList(Article record);
 	
 	int insertSelective(Article record);
@@ -15,4 +17,6 @@ public interface ArticleService {
 	Article selectByPrimaryKey(String id);
 	
 	List<Article> getarticle(Article record);
+	
+	int updateByPrimaryKeySelective(Article record);
 }

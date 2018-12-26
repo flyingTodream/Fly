@@ -1,44 +1,75 @@
 package com.fly.cotroller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.common.CommonContext;
+import com.common.utils.DateUtils;
+import com.common.utils.StringUtils;
 import com.fly.model.Article;
 import com.fly.model.UserInfo;
+import com.fly.service.ArticleService;
 
 /**
- * Œƒ’¬œ‡πÿ÷˜¿‡
+ * 
+ * 
  * @author A-T
  *
  */
 @Controller
 public class ArticleController {
 
+	@Autowired
+	private ArticleService ArticleServiceImpl;
+
 	/**
-	 *  ‘ˆº”Œƒ’¬
+	 * Ê∑ªÂä†ÊñáÁ´†
+	 * 
 	 * @param req
 	 * @param res
 	 * @return
 	 */
-	@RequestMapping(value="addArticle" , method=RequestMethod.POST)
+	@RequestMapping(value = "addArticle", method = RequestMethod.POST)
 	@ResponseBody
-	public Object addArticle(Article article ,HttpServletRequest req , HttpServletResponse res) {
+	public Object addArticle(Article article, HttpServletRequest req, HttpServletResponse res) {
 		JSONObject json = new JSONObject();
-		
-		//µ√µΩµ±«∞µ«¬º µÃÂ
-		UserInfo entity = (UserInfo)req.getSession().getAttribute("userInfo");
-		if(entity == null) {
-			json.put("code", "200");
-			return json;
-		}else {
-			
+		json.put("code", CommonContext.HTTP_SUCCESS);
+		try {
+
+			// Ëé∑ÂèñÂΩìÂâçÁôªÈôÜÂÆû‰Ωì
+			UserInfo entity = (UserInfo) req.getSession().getAttribute("userInfo");
+			if (entity == null) {
+				json.put("code", "400");
+				return json;
+			} else {
+				// ‰∏∫Á©∫Êñ∞Â¢ûÁöÑÂú∫Âêà
+				if (StringUtils.isEmpty(article.getId())) {
+					article.setId(StringUtils.UUID());
+					article.setAuther(entity.getUsername());
+					article.setInsertTime(DateUtils.getCurrDate());
+					ArticleServiceImpl.insertSelective(article);
+
+				} else {
+					// Êõ¥Êñ∞
+					article.setUpdateTime(DateUtils.getCurrDate());
+					ArticleServiceImpl.updateByPrimaryKeySelective(article);
+				}
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			json.put("code", CommonContext.HTTP_ERROR);
 		}
+
 		return json;
 	}
 }

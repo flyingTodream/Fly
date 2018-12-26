@@ -41,10 +41,10 @@ public class IndexController {
 		for(int i = 0 ; i < 50 ; i++) {
 			Article a = new Article();
 			a.setId(StringUtils.UUID());
-			a.setTitle(i+"¶þ¼¶²Ëµ¥µÈ¹¦ÄÜ£¬ÐèÒªÒÀÀµelementÄ£¿é");
+			a.setTitle(i+"ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½È¹ï¿½ï¿½Ü£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½elementÄ£ï¿½ï¿½");
 			a.setInsertTime(DateUtils.getCurrDate());
 			a.setAuther("admin");
-			a.setContent("ÓÃÓÚÉèÖÃÒ»¸ö¿í¶ÈÎª 1140px µÄË®Æ½¾ÓÖÐ¿é£¨ÎÞÏìÓ¦Ê½£©");
+			a.setContent("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Îª 1140px ï¿½ï¿½Ë®Æ½ï¿½ï¿½ï¿½Ð¿é£¨ï¿½ï¿½ï¿½ï¿½Ó¦Ê½ï¿½ï¿½");
 			//a.setMuenId("62e8e3d7bb09458a8d6d7cec37792b18");
 			a.setMuenId("70d0e22d55cd4572918608ad5c7bbb97");
 			//a.setMuenId("7da30279407c4fa7a5034895933b85ab");
@@ -60,7 +60,7 @@ public class IndexController {
 	}
 	
 	/**
-	 * »ñµÃ²Ëµ¥Ãû³Æ
+	 * ï¿½ï¿½Ã²Ëµï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param mid
 	 * @param req
 	 * @return
@@ -73,7 +73,7 @@ public class IndexController {
 	}
 	
 	/**
-	 * »ñÈ¡ÎÄÕÂÁÐ±í
+	 * ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½
 	 * @param searchEntity
 	 * @param req
 	 * @return

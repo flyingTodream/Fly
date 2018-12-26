@@ -320,8 +320,6 @@
 		var username = localStorage.getItem('username');
 		if (username == null || username == '') {
 			location.href = 'temp/login.html';
-		}else{
-			checkLogin();
 		}
 		function loginOut() {
 			$ = layui.jquery;
@@ -338,19 +336,6 @@
 		}
 		
 		
-	function checkLogin(){
-		$ = layui.jquery;
-		$.post('/checkLogin',function(res) {
-			if (res.code == 400) {
-				layer.msg('登录超时，请重新登录', {
-					time : 2000,
-				}, function() {
-					localStorage.removeItem('username');
-					location.href = 'temp/login.html';
-				});
-			}
-		});
-	}
 
 		
 	</script>

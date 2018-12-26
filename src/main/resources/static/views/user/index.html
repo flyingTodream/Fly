@@ -4,7 +4,7 @@
 		var layer = layui.layer;
 		var router = layui.router();
 		var data = getParams(router.href);
-		$("#insert").attr("href","#/user/create?mid="+data.mid);
+		$("#add").attr("href","#/user/create?mid="+data.mid);
 
 	});
 </script>
@@ -13,11 +13,11 @@
 		<div class="layui-col-xs12">
 			<div class="layui-card">
 				<div class="layui-card-header">
-					<a href="#/user/create" id="insert" class="layui-btn layui-btn-sm"><i
+					<a href="#/user/create" id="add" class="layui-btn layui-btn-sm"><i
 						class="layui-icon">&#xe654;</i> 新增</a>
 				</div>
 				<div class="layui-card-body">
-					<table id="demo_hash" lay-filter="test"></table>
+					<table id="demo_hash" lay-filter="demo"></table>
 				</div>
 			</div>
 		</div>
@@ -48,25 +48,69 @@ layui.config({
           {
             field: 'title',
             title: '标题',
-            width: 800,
-            fixed: 'center'
+            width: 750,
           }, {
             field: 'menuName',
             title: '分类',
             width: 100
           }, {
-            field: 'Time',
+            field: 'insertTime',
             title: '时间',
-            width: 100,
-            templet: function(d){
-            	console.log(d);
-            	return d.insertTime;
+            width: 110
+          }, {
+              field: 'op',
+              title: '操作',
+              width: 130,
+              height:50,
+              templet: function(d){
+              	console.log(d);
+              	return "<button lay-event='edit' class='layui-btn layui-btn-primary layui-btn-sm'><i class='layui-icon'></i></button>"+
+              	"<button lay-event='del' class='layui-btn layui-btn-primary layui-btn-sm'><i class='layui-icon'></i></button>";
+              }
             }
-          }
         ]
       ]
     });
   });
+
+  layui.use('table', function(){
+	  var table = layui.table;
+	  
+  //监听工具条
+  table.on('tool(demo)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'detail'){
+      layer.msg('ID：'+ data.id + ' 的查看操作');
+    } else if(obj.event === 'del'){
+    	var layer = layui.layer;
+    	layer.confirm('真的删除行么', function(index){
+    	  var layIndex = layer.load(2, {
+              shade: [0.1, '#393D49']
+            });
+    	  $.post('/delArticle', data ,function(res){
+    		  layer.close(layIndex);
+    			if(res.code == 200){
+    				obj.del();
+    				layer.msg('删除成功');
+    			}else{
+    				layer.msg('删除失败');
+    			}
+    		});
+      });
+    } else if(obj.event === 'edit'){
+    	var layer = layui.layer;
+		var router = layui.router();
+		var urldata = getParams(router.href);
+    	window.location="#/user/create?mid="+urldata.mid + "&id="+data.id;
+      //layer.alert('编辑行：<br>'+ JSON.stringify(data))
+    }
+  });
+  });
+  
+	
 </script>
 <style scoped>
+.layui-table-cell{
+	height: 35px;
+}
 </style>

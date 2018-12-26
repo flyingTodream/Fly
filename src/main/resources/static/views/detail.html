@@ -5,17 +5,16 @@ $(function(){
 	  var router = layui.router();
 	  var data = getParams(router.href); 
 	$.get('/GetMenuName',data ,function(res){
+		$('#a_menuName').text(res.name);
 		$('#menu').text(res.name);
 	});
 	
 	$.post('/GetArticleDetail',data ,function(res){
-		console.log(res);
-		alert(res.menuName);
-		$('.title').text(res.title);
-		$('.time').text(res.insertTime);
-		$('.auther').text(res.auther);
-		$('.m122').text(res.menuName);
-		$('.lay-article').text(res.content);
+		$('#a_title').text(res.title);
+		$('#a_time').text(res.insertTime);
+		$('#a_auther').text(res.auther);
+		$('#a_content').append(res.content);
+		//
 	});
 	
 });
@@ -33,14 +32,14 @@ $(function(){
 				<div class="layui-card-body">
 					<div class="lay-content">
 						<center>
-							<p class="title"></p>
+							<p id="a_title" ></p>
 						</center>
 						<div class="lay-msg">
-							<span class="lay-fa">时间：<span id="lkjh" class="time"></span></span> <span
-								class="lay-fa">作者：<span class="auther"></span></span> 
-								<span class="lay-fa" >分类：<span class='m122'></span>
+							<span class="lay-fa">时间：<span id="a_time"></span></span> <span
+								class="lay-fa">作者：<span id="a_auther"></span></span> 
+								<span class="lay-fa" >分类：<span id='a_menuName'></span>
 						</div>
-						<div class="lay-article">
+						<div id="a_content" class="lay-article">
 						</div>
 					</div>
 				</div>
@@ -68,7 +67,7 @@ $(function(){
 </script>
 
 <style scoped>
-.title {
+#a_title {
 margin:0 auto;
 	font-size: 16px;
 	width: 750px;

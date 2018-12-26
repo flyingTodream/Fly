@@ -23,12 +23,13 @@ public class ArticleServiceImpl implements ArticleService {
 	public JSONObject selectList(Article record) {
 		// TODO Auto-generated method stub
 		JSONObject json = new JSONObject();
+		String order = "t.insert_time desc";
 		Page<Object> page = null;
 		if(record.getLimit()==null) {
-			page = PageHelper.startPage(record.getPage(), 10);
+			page = PageHelper.startPage(record.getPage(), 10 ,order);
 			
 		}else {
-			page = PageHelper.startPage(record.getPage(), record.getLimit());
+			page = PageHelper.startPage(record.getPage(), record.getLimit() , order);
 			
 		}
 		json.put("data", mapper.selectList(record));
@@ -56,6 +57,18 @@ public class ArticleServiceImpl implements ArticleService {
 		// TODO Auto-generated method stub
 		PageHelper.startPage(record.getPage(), record.getLimit());
 		return mapper.selectList(record);
+	}
+
+	@Override
+	public int deleteByPrimaryKey(String id) {
+		// TODO Auto-generated method stub
+		return mapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(Article record) {
+		// TODO Auto-generated method stub
+		return mapper.updateByPrimaryKeySelective(record);
 	}
 
 }
