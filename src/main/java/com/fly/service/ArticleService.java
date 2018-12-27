@@ -19,4 +19,6 @@ public interface ArticleService {
 	List<Article> getarticle(Article record);
 	
 	int updateByPrimaryKeySelective(Article record);
+	
+	JSONObject search(String kw, int page);
 }

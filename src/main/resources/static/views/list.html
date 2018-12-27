@@ -6,6 +6,7 @@ $(function(){
 	  var data = getParams(router.href); 
 	$.get('/GetMenuName',data ,function(res){
 		$('#menu').text(res.name);
+		
 	});
 	
 	
@@ -56,7 +57,7 @@ $(function(){
 	    isLazyimg: false,
 	    mb:100,
 	    done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-	      var lis = [];
+	    var lis = [];
 	      //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
 	      $.get('/GetArticleList?page='+page+'&muenId='+data.mid, function(res){
 	    	   //假设你的列表返回在data集合中

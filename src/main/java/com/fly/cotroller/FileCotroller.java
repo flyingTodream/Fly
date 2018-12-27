@@ -46,7 +46,7 @@ public class FileCotroller {
 		ApplicationHome home = new ApplicationHome(getClass());
 		String shellPath = home.getSource().getParent();
 
-		// �ļ��ϴ�·��
+		// 上传路径
 		String path = shellPath + "/imgages/";
 
 		// �ļ�ϵͳ�ļ���

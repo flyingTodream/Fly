@@ -71,4 +71,18 @@ public class ArticleServiceImpl implements ArticleService {
 		return mapper.updateByPrimaryKeySelective(record);
 	}
 
+	@Override
+	public JSONObject search(String kw,int page) {
+		// TODO Auto-generated method stub
+		JSONObject json = new JSONObject();
+		String order = "t.insert_time desc";
+		Page<Object> pages = PageHelper.startPage(page, 10 ,order);
+		json.put("data", mapper.search(kw));
+		PageInfo<Object> info = new PageInfo<>(pages.getResult());
+		json.put("pages", info.getPages());
+		json.put("code", 0);
+		json.put("count", info.getTotal());
+		return json;
+	}
+
 }

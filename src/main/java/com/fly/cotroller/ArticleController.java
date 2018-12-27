@@ -1,7 +1,5 @@
 package com.fly.cotroller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
@@ -72,4 +69,19 @@ public class ArticleController {
 
 		return json;
 	}
+
+	/**
+	 * 查询文章
+	 * 
+	 * @param req
+	 * @param res
+	 * @return
+	 */
+	@RequestMapping(value = "Search")
+	@ResponseBody
+	public Object Search(String keyWord, int page, HttpServletRequest req, HttpServletResponse res) {
+		System.out.println();
+		return ArticleServiceImpl.search(keyWord, page);
+	}
+
 }

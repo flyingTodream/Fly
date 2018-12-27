@@ -97,7 +97,7 @@ layui.define(mods, function(exports) {
         });
       }
       if (target === 'help') {
-        layer.alert('QQ群：248049395，616153456');
+        layer.alert('QQ: 1595039482');
       }
     });
 

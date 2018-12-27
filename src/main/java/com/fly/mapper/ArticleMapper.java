@@ -2,6 +2,8 @@ package com.fly.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.fly.model.Article;
 
 public interface ArticleMapper {
@@ -20,4 +22,6 @@ public interface ArticleMapper {
     int updateByPrimaryKeyWithBLOBs(Article record);
 
     int updateByPrimaryKey(Article record);
+    
+    List<Article> search(@Param("kw")String kw);
 }

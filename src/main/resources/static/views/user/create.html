@@ -135,7 +135,8 @@
 						//history.back(-1);
 						var layer = layui.layer;
 						var router = layui.router();
-						location.href = "#/"+router.href;
+						var urldata = getParams(router.href);
+						location.href = "#/user/index?mid="+urldata.mid;
 					});
 		         }
 		      });

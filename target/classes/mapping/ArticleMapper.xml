@@ -1,154 +1,168 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.fly.mapper.ArticleMapper" >
-  <resultMap id="BaseResultMap" type="com.fly.model.Article" >
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="muen_id" property="muenId" jdbcType="VARCHAR" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="auther" property="auther" jdbcType="VARCHAR" />
-    <result column="insert_time" property="insertTime" jdbcType="VARCHAR" />
-    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
-    <result column="browse_times" property="browseTimes" jdbcType="INTEGER" />
-  <result column="menu_name" property="menuName" jdbcType="VARCHAR" />
- </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.fly.model.Article" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, muen_id, title, auther, insert_time, update_time, browse_times
-  </sql>
-  <sql id="Blob_Column_List" >
-    content
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
-    select 
-     t.id, t.muen_id, m.name menu_name ,  t.title, t.auther, t.insert_time, t.update_time, t.browse_times,
-    t.content from article t left join menu m 
-    on m.menu_id = t.muen_id
-    where t.id = #{id,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from article
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.fly.model.Article" >
-    insert into article (id, muen_id, title, 
-      auther, insert_time, update_time, 
-      browse_times, content)
-    values (#{id,jdbcType=VARCHAR}, #{muenId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{auther,jdbcType=VARCHAR}, #{insertTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, 
-      #{browseTimes,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.fly.model.Article" >
-    insert into article
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="muenId != null" >
-        muen_id,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="auther != null" >
-        auther,
-      </if>
-      <if test="insertTime != null" >
-        insert_time,
-      </if>
-      <if test="updateTime != null" >
-        update_time,
-      </if>
-      <if test="browseTimes != null" >
-        browse_times,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="muenId != null" >
-        #{muenId,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="auther != null" >
-        #{auther,jdbcType=VARCHAR},
-      </if>
-      <if test="insertTime != null" >
-        #{insertTime,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        #{updateTime,jdbcType=VARCHAR},
-      </if>
-      <if test="browseTimes != null" >
-        #{browseTimes,jdbcType=INTEGER},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.fly.model.Article" >
-    update article
-    <set >
-      <if test="muenId != null" >
-        muen_id = #{muenId,jdbcType=VARCHAR},
-      </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="auther != null" >
-        auther = #{auther,jdbcType=VARCHAR},
-      </if>
-      <if test="insertTime != null" >
-        insert_time = #{insertTime,jdbcType=VARCHAR},
-      </if>
-      <if test="updateTime != null" >
-        update_time = #{updateTime,jdbcType=VARCHAR},
-      </if>
-      <if test="browseTimes != null" >
-        browse_times = #{browseTimes,jdbcType=INTEGER},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.fly.model.Article" >
-    update article
-    set muen_id = #{muenId,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      auther = #{auther,jdbcType=VARCHAR},
-      insert_time = #{insertTime,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=VARCHAR},
-      browse_times = #{browseTimes,jdbcType=INTEGER},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.fly.model.Article" >
-    update article
-    set muen_id = #{muenId,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      auther = #{auther,jdbcType=VARCHAR},
-      insert_time = #{insertTime,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=VARCHAR},
-      browse_times = #{browseTimes,jdbcType=INTEGER}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+<mapper namespace="com.fly.mapper.ArticleMapper">
+	<resultMap id="BaseResultMap" type="com.fly.model.Article">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="muen_id" property="muenId" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="auther" property="auther" jdbcType="VARCHAR" />
+		<result column="insert_time" property="insertTime"
+			jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime"
+			jdbcType="VARCHAR" />
+		<result column="browse_times" property="browseTimes"
+			jdbcType="INTEGER" />
+		<result column="menu_name" property="menuName"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs"
+		type="com.fly.model.Article" extends="BaseResultMap">
+		<result column="content" property="content"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, muen_id, title, auther, insert_time, update_time, browse_times
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+		t.id, t.muen_id, m.name menu_name , t.title, t.auther, t.insert_time,
+		t.update_time, t.browse_times,
+		t.content from article t left join menu m
+		on m.menu_id = t.muen_id
+		where t.id = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from article
+		where id = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.fly.model.Article">
+		insert into article (id, muen_id, title,
+		auther, insert_time, update_time,
+		browse_times, content)
+		values (#{id,jdbcType=VARCHAR}, #{muenId,jdbcType=VARCHAR},
+		#{title,jdbcType=VARCHAR},
+		#{auther,jdbcType=VARCHAR}, #{insertTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR},
+		#{browseTimes,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.fly.model.Article">
+		insert into article
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="muenId != null">
+				muen_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="auther != null">
+				auther,
+			</if>
+			<if test="insertTime != null">
+				insert_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="browseTimes != null">
+				browse_times,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="muenId != null">
+				#{muenId,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="auther != null">
+				#{auther,jdbcType=VARCHAR},
+			</if>
+			<if test="insertTime != null">
+				#{insertTime,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="browseTimes != null">
+				#{browseTimes,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.fly.model.Article">
+		update article
+		<set>
+			<if test="muenId != null">
+				muen_id = #{muenId,jdbcType=VARCHAR},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="auther != null">
+				auther = #{auther,jdbcType=VARCHAR},
+			</if>
+			<if test="insertTime != null">
+				insert_time = #{insertTime,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="browseTimes != null">
+				browse_times = #{browseTimes,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="com.fly.model.Article">
+		update article
+		set muen_id = #{muenId,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		auther = #{auther,jdbcType=VARCHAR},
+		insert_time = #{insertTime,jdbcType=VARCHAR},
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		browse_times = #{browseTimes,jdbcType=INTEGER},
+		content = #{content,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.fly.model.Article">
+		update article
+		set muen_id = #{muenId,jdbcType=VARCHAR},
+		title = #{title,jdbcType=VARCHAR},
+		auther = #{auther,jdbcType=VARCHAR},
+		insert_time = #{insertTime,jdbcType=VARCHAR},
+		update_time = #{updateTime,jdbcType=VARCHAR},
+		browse_times = #{browseTimes,jdbcType=INTEGER}
+		where id = #{id,jdbcType=VARCHAR}
+	</update>
 
 	<select id="selectList" resultMap="ResultMapWithBLOBs"
 		parameterType="com.fly.model.Article">
 		select
-	 t.id, t.muen_id, m.name menu_name ,  t.title, t.auther, t.insert_time, t.update_time, t.browse_times,
-    t.content from article t left join menu m 
-    on m.menu_id = t.muen_id
+		t.id, t.muen_id, m.name menu_name , t.title, t.auther, t.insert_time,
+		t.update_time, t.browse_times,
+		t.content from article t left join menu m
+		on m.menu_id = t.muen_id
 		<where>
 			1=1
 			<if test="id != null and id != ''">
@@ -161,4 +175,23 @@
 
 	</select>
 
+
+	<select id="search" resultMap="ResultMapWithBLOBs"
+		parameterType="com.fly.model.Article">
+		select
+		t.id, t.muen_id, m.name menu_name , t.title, t.auther, t.insert_time,
+		t.update_time, t.browse_times,
+		t.content from article t left join menu m
+		on m.menu_id = t.muen_id
+		<where>
+			1=1
+			<if test="kw != null and kw != ''">
+				and (t.title like CONCAT('%', #{kw,jdbcType=VARCHAR}, '%')
+				or t.content like CONCAT('%', #{kw,jdbcType=VARCHAR}, '%')
+				)
+
+			</if>
+		</where>
+
+	</select>
 </mapper>

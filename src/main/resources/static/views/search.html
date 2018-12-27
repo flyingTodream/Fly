@@ -1,1 +1,96 @@
-search
+<script type="text/javascript">
+$ = layui.jquery;
+function GetRequest() {  
+	   var url = location.search; //获取url中"?"符后的字串  
+	   var theRequest = new Object();  
+	   if (url.indexOf("?") != -1) {  
+	      var str = url.substr(1);  
+	      strs = str.split("&");  
+	      for(var i = 0; i < strs.length; i ++) {  
+	         theRequest[strs[i].split("=")[0]]=strs[i].split("=")[1];  
+	      }  
+	   }  
+	   return theRequest;  
+	} 
+</script>
+<div  class="layui-fluid" >
+	<div  class="layui-row" >
+		<div    class="layui-col-xs12">
+			<div class="layui-card">
+				<div  class="layui-card-header">
+					<span class="layui-breadcrumb"> <a href="/">首页</a> <a
+						href="javascript:;">搜索</a>
+					</span>
+				</div>
+				<div id="layui-scroll" class="layui-card-body">
+						<ul class="list" id="articleList">
+						</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+  layui.use('element', function() {
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+    element.init();
+    
+    //监听导航点击
+    element.on('nav(demo_hash)', function(elem) {
+      //console.log(elem)
+      layer.msg(elem.text());
+    });
+  });
+  
+  layui.use('flow', function(){
+	  var $ = layui.jquery; //不用额外加载jQuery，flow模块本身是有依赖jQuery的，直接用即可。
+	  var flow = layui.flow;
+	  var param = GetRequest();
+	  
+	  flow.load({
+	    elem: '#articleList' //指定列表容器
+	    ,
+	    isAuto: true,
+	    scrollElem:'#layui-scroll',
+	    isLazyimg: false,
+	    mb:100,
+	    done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+	      var lis = [];
+	      //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+	      $.get('/Search?keyWord='+param.keyword+"&page="+page, function(res){
+	    	   //假设你的列表返回在data集合中
+	        layui.each(res.data, function(index, item){
+	        	lis.push("<li class='layui-anim layui-anim-upbit'><span class='title'><a href='#/detail?id="+ item.id +"'>"+ item.title + "</a></span><span class='time'>" + item.insertTime +"</span><hr class='layui-bg-gray'></li>");
+	        }); 
+	        $('.layui-anim layui-anim-upbit').animate({opacity:10},5000);
+	        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+	        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+	        next(lis.join(''), page < res.pages);    
+	      });
+	    }
+	  });
+	});
+</script>
+
+<style scoped>
+.list{
+width: 1000px;
+min-width:1000px;
+margin: 0 auto;
+
+}
+.title{
+	width:900px;
+	overflow: hidden;
+	height: 30px;
+}
+#layui-scroll{
+height: 480px;
+overflow: auto;
+}
+.time{
+	float: right;
+}
+</style>

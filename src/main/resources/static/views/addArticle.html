@@ -1,73 +1,60 @@
-<script type="text/javascript">
-	$ = layui.jquery;
-	$(function() {
-		var layer = layui.layer;
-		var router = layui.router();
-		var data = getParams(router.href);
-		$.get('/GetMenuName', data, function(res) {
-			$('#menu').text(res.name);
-		});
-
-		layui.use('layedit', function() {
-			var layedit = layui.layedit;
-			layedit.set({
-				uploadImage : {
-					data : {
-						p : '1'
-					},
-					url : '/uploadImg' //接口url
-					,
-					type : 'post' //默认post
-				}
-			});
-			layedit.build('content', {
-				tool : [ 'strong' //加粗
-				, 'italic' //斜体
-				, 'underline' //下划线
-				, 'del' //删除线
-
-				, '|' //分割线
-
-				, 'left' //左对齐
-				, 'center' //居中对齐
-				, 'right' //右对齐
-				, 'link' //超链接
-				, 'unlink' //清除链接
-				, 'face' //表情
-				, 'image' //插入图片
-				],
-				height : 400
-			}); //建立编辑器
-		});
-
-	});
-</script>
-
 <div class="layui-fluid">
 	<div class="layui-row">
 		<div class="layui-col-xs12">
 			<div class="layui-card">
 				<div class="layui-card-header">
 					<span class="layui-breadcrumb"> <a href="/">首页</a> <a
-						href="javascript:;">MySql</a> <a href="javascript:;"><cite>添加文章</cite></a>
+						href="javascript:;">搜索</a>
 					</span>
 				</div>
-				<div class="layui-card-body">
-					<form id="lay-form" class="layui-form"
-						>
+				<div id="layui-scroll" class="layui-card-body">
+					    
+					<div id="uploadLoadingDiv">
+						<div class="layui-progress" lay-showpercent="true"
+							lay-filter="demo">
+							    
+							<div class="layui-progress-bar layui-bg-red" lay-percent="0%"></div>
+							        
+						</div>
+						    
+					</div>
+					    
+					<form class="layui-form" enctype="multipart/form-data">
+						        
+						<div class="layui-form-item layui-upload">
+							    <span id="uploadName" style="line-height: 3;"></span>     
+							<button type="button" class="layui-btn layui-btn-normal"
+								id="test8" style="float: right;">
+								<i class="layui-icon"></i>
+							</button>
+							        
+						</div>
+						        
 						<div class="layui-form-item">
-							<label class="layui-form-label">标题</label>
+							    
 							<div class="layui-input-block">
-								<input type="text" id="title" name="title" required
-									lay-verify="required" placeholder="请输入标题" autocomplete="off"
-									class="layui-input">
+								        <input type="radio" name="upgradeType" value="30011001"
+									title="手动升级">         <input type="radio"
+									name="upgradeType" value="30011002" title="自动升级" checked>
+								    
 							</div>
+							        
 						</div>
-						<textarea name="content" id="content" style="display: none;"></textarea>
-						<div style="width: 150px; margin: 0 auto;">
-							<button style="width: 150px;  margin: 20px auto;" onclick="sub()"
-								class="layui-btn layui-btn-normal" lay-submit="submit" lay-filter="login_hash">提交</button>
+						        
+						<div class="layui-form-item">
+							    
+							<div class="layui-input-block">
+								        <a class="roundCornerDiv aLineGray"
+									href="javascript:layer.closeAll();">     <span type="reset"
+									class="ButtonText popupCloseBtn">取消</span>         
+								</a>         <a class="roundCornerDiv aLineOrange">     
+									<button class="ButtonText submitBtn" type="button" id="test9">立即提交</button>
+									    
+								</a>     
+							</div>
+							        
 						</div>
+						     
 					</form>
 
 				</div>
@@ -75,10 +62,10 @@
 		</div>
 	</div>
 </div>
+
 <script>
 	layui.use('element', function() {
 		var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
-		console.log(element);
 		element.init();
 
 		//监听导航点击
@@ -86,39 +73,69 @@
 			//console.log(elem)
 			layer.msg(elem.text());
 		});
-	});	
-	
-	layui.use(['layer', 'form'], function() {
-	      var form = layui.form,
-	         $ = layui.jquery;
-
-	      //监听提交
-	      form.on('submit(login_hash)', function(data) {
-	        var layIndex = layer.load(2, {
-	          shade: [0.1, '#393D49']
-	        });
-	        alert(data.field);
-	        console.log(data);
-	        $.post('/addArticle', data.field, function(res){
-		    	   //假设你的列表返回在data集合中
-		         if (res.code == 400) {
-		        	 alert("11");
-					layer.msg('登录超时，请重新登录', {
-						time : 2000,
-					}, function() {
-						localStorage.removeItem('username');
-						location.href = '../temp/login.html';
+	});
+	layui.use(
+					[ 'upload', 'element', 'layer' ],
+					function() {
+						var upload = layui.upload, element = layui.element, layer = layui.layer;
+						upload
+								.render({
+									elem : '#test8',
+									url : '/uploadImg',
+									async : false,
+									method : 'post',
+									data : {
+										upgradeType : function() {
+											return $(
+													"input[name='upgradeType']:checked")
+													.val();
+										}
+									},
+									auto : false,
+									xhr : xhrOnProgress,
+									progress : function(value) {//上传进度回调 value进度值
+										element.progress('demo', value + '%')//设置页面进度条
+									},
+									accept : 'file' //普通文件
+									,
+									
+									field : 'uploadFile',
+									bindAction : '#test9',
+									choose : function(obj) {
+										var uploadFileInput = $(
+												".layui-upload-file").val();
+										var uploadFileName = uploadFileInput
+												.split("\\");
+										$("#uploadName")
+												.text(
+														uploadFileName[uploadFileName.length - 1]);
+									},
+									before : function(obj) {
+										layer.load(); //上传loading
+									},
+									done : function(res) {
+										layer.msg("上传成功");
+									},
+									error : function(index, upload) {
+										element.progress('demo', '0%');
+										layer.msg('上传失败');
+									}
+								});
 					});
-				}
-		         
-		      });
-	        return false;
-	      });
-	    });
-
-	
-	
+	var xhrOnProgress = function(fun) {
+		xhrOnProgress.onprogress = fun; //绑定监听
+		//使用闭包实现监听绑
+		return function() {
+			//通过$.ajaxSettings.xhr();获得XMLHttpRequest对象
+			var xhr = $.ajaxSettings.xhr();
+			//判断监听函数是否为函数
+			if (typeof xhrOnProgress.onprogress !== 'function')
+				return xhr;
+			//如果有监听函数并且xhr对象支持绑定时就把监听函数绑定上去
+			if (xhrOnProgress.onprogress && xhr.upload) {
+				xhr.upload.onprogress = xhrOnProgress.onprogress;
+			}
+			return xhr;
+		}
+	}
 </script>
-
-<style scoped>
-</style>
