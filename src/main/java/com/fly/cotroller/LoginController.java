@@ -43,7 +43,6 @@ public class LoginController {
 		JSONObject json = new JSONObject();
 		json.put("code", CommonContext.HTTP_SUCCESS);
 		try {
-
 			UserInfo searchEntity = new UserInfo();
 			searchEntity.setUsername(loginName);
 			searchEntity = userInfoServiceImpl.selectByPrimaryKey(searchEntity);

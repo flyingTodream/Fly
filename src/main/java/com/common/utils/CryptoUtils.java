@@ -6,14 +6,14 @@ import org.springframework.util.DigestUtils;
 public class CryptoUtils {
 	private static final String DEFAULT_CHARSET = "UTF-8";
 
-	
 	/**
 	 * md5 salt 加密
+	 * 
 	 * @param str
 	 * @param salt
 	 * @return
 	 */
-	public static String encodeMD5WithSalt(final String str,String salt) {
+	public static String encodeMD5WithSalt(final String str, String salt) {
 		String encodeStr = str + salt;
 		try {
 			return DigestUtils.md5DigestAsHex(encodeStr.getBytes(DEFAULT_CHARSET));
@@ -23,10 +23,10 @@ public class CryptoUtils {
 		}
 		return null;
 	}
-	
-	
+
 	/**
 	 * 默认md5加密
+	 * 
 	 * @param str
 	 * @return
 	 */
@@ -39,6 +39,4 @@ public class CryptoUtils {
 		}
 		return null;
 	}
-	
-	
 }

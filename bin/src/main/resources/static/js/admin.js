@@ -135,11 +135,11 @@ layui.define(mods, function(exports) {
         r: [{
           path: '/user/index',
           component: '/views/user/index.html',
-          name: '用户列表',
+          name: '',
           children: [{
             path: '/user/create',
             component: 'views/user/create.html',
-            name: '新增用户',
+            name: '',
           }, {
             path: '/user/edit',
             component: 'views/user/edit.html',
@@ -164,15 +164,15 @@ layui.define(mods, function(exports) {
         }, {
           path: '/user/index',
           component: '/views/user/index.html',
-          name: '用户列表'
+          name: ''
         }, {
           path: '/user/create',
           component: 'views/user/create.html',
-          name: '新增用户',
+          name: '',
         }, {
           path: '/user/edit',
           component: 'views/user/edit.html',
-          name: '编辑用户',
+          name: '',
         }, {
           path: '/cascader',
           component: 'views/cascader/index.html',

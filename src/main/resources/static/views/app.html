@@ -1,3 +1,23 @@
+<script type="text/javascript">
+$ = layui.jquery;
+$(function(){
+	  var layer=layui.layer;	
+	  var router = layui.router();
+	  var data = getParams(router.href); 
+	$.get('/checkLogin',data ,function(res){
+		if(res.code == 400){
+			layer.msg('登录超时，请重新登录，即将跳转到登陆界面...', {
+				time : 2000,
+			}, function() {
+				localStorage.removeItem('username');
+				location.href = '../temp/login.html';
+			});
+		}
+	});
+	
+});
+
+</script>
 <div class="layui-fluid">
   <div class="layui-row">
     <div class="layui-col-xs12">

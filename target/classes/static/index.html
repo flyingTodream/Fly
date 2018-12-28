@@ -26,7 +26,8 @@
 			</div>
 			<ul class="layui-nav layui-layout-left">
 
-				<li class="layui-nav-item" lay-unselect><a href="javascript:parent.location.reload();"
+				<li class="layui-nav-item" lay-unselect><a
+					href="javascript:parent.location.reload();"
 					layadmin-event="refresh" title="刷新"> <i
 						class="layui-icon layui-icon-refresh-3"></i>
 				</a></li>
@@ -276,9 +277,6 @@
 						<li class="kit-menu-item"><a href="/admin.html"
 							target="_blank"> <i class="layui-icon"></i> <span>后台管理</span>
 						</a></li>
-						<li class="kit-menu-item"><a href="#/inputnumber"> <i
-								class="layui-icon"></i> <span>InputNumber</span>
-						</a></li>
 
 					</ul>
 				</div>
@@ -290,10 +288,9 @@
 		</div>
 		<!-- footer -->
 		<div class="layui-footer" kit-footer="true">
-			2017 © kit.zhengjinfan.cn MIT license
 			<div style="width: 400px; height: 400px;"
 				class="load-container load1">
-				<div class="loader">Loading...</div>
+				<div class="loader"></div>
 			</div>
 		</div>
 	</div>
@@ -309,16 +306,21 @@
 	<!-- endbuild -->
 	<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
 	<!-- build:use -->
-	
-	
-	
+
+
+
 	<script>
 		layui.config({
 			base : 'js/'
 		}).use('admin');
 		var username = localStorage.getItem('username');
 		if (username == null || username == '') {
-			location.href = 'temp/login.html';
+			layer.msg('登录超时，请重新登录，即将跳转到登陆界面...', {
+				time : 3000,
+			}, function() {
+				localStorage.removeItem('username');
+				location.href = 'temp/login.html';
+			});
 		}
 		function loginOut() {
 			$ = layui.jquery;
@@ -333,27 +335,25 @@
 			});
 
 		}
-		
-		
-		function GetRequest() {  
-			   var url = location.search; //获取url中"?"符后的字串  
-			   var theRequest = new Object();  
-			   if (url.indexOf("?") != -1) {  
-			      var str = url.substr(1);  
-			      strs = str.split("&");  
-			      for(var i = 0; i < strs.length; i ++) {  
-			         theRequest[strs[i].split("=")[0]]=strs[i].split("=")[1];  
-			      }  
-			   }  
-			   return theRequest;  
-			} 
-		var param = GetRequest();	
-		if(param.keyword != null){
-			document.getElementById('kw').value=decodeURI(param.keyword);
-			
+
+		function GetRequest() {
+			var url = location.search; //获取url中"?"符后的字串  
+			var theRequest = new Object();
+			if (url.indexOf("?") != -1) {
+				var str = url.substr(1);
+				strs = str.split("&");
+				for (var i = 0; i < strs.length; i++) {
+					theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
+				}
+			}
+			return theRequest;
 		}
-		
-</script>
+		var param = GetRequest();
+		if (param.keyword != null) {
+			document.getElementById('kw').value = decodeURI(param.keyword);
+
+		}
+	</script>
 	<!-- endbuild -->
 </body>
 

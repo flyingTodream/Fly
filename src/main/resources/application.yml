@@ -2,7 +2,7 @@ server:
   port: 80
   servlet:
     session:
-      timeout: 3600s
+      timeout: 1800s
   maxHttpHeaderSize: 102400
   maxHttpPostSize: 102400
 spring:
