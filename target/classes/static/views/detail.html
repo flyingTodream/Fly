@@ -14,6 +14,7 @@ $(function(){
 		$('#a_time').text(res.insertTime);
 		$('#a_auther').text(res.auther);
 		$('#a_content').append(res.content);
+		$('#a_content').fadeIn();
 		var datafiled = {
 				mid:res.muenId
 		};
@@ -47,7 +48,7 @@ $(function(){
 								class="lay-fa">作者：<span id="a_auther"></span></span> 
 								<span class="lay-fa" >分类：<span id='a_menuName'></span>
 						</div>
-						<div id="a_content" class="lay-article">
+						<div style="display: none;" id="a_content" class="lay-article">
 						</div>
 					</div>
 				</div>
