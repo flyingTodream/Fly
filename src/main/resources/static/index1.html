@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>翻译</title>
+<style type="text/css">
+.input__original__area {
+	display: block;
+	font-family: ArialMT, "Microsoft YaHei", Arial, sans-serif, Helvetica,
+		STHeiti;
+	width: 100%;
+	min-height: 156px;
+	padding: 0;
+	border: 0;
+	background: 0 0;
+	font-size: 24px;
+	color: #333;
+	line-height: 30px;
+	overflow: auto;
+	border: 1px solid #ccc;
+	resize:none;
+}
+
+.fa_1 {
+	width: 95%;
+	min-width: 1100px;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+.fa_2 {
+	width: 48%;
+	float: left;
+}
+
+.fa_3 {
+	width: 48%;
+	float: left;
+	margin-left: 2%;
+}
+</style>
+</head>
+
+<body class="layui-layout-body kit-theme-default">
+	<div class="fa_1">
+		<div class="fa_2">
+			<textarea id="inputOriginal" dir="auto" class="input__original__area"
+				placeholder="请输入你要翻译的英文"></textarea>
+		</div>
+		<div class="fa_3">
+			<textarea id="output" dir="auto" class="input__original__area"></textarea>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/mui.js"></script>
+	<script type="text/javascript" src="/js/jquery-1.6.2.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('#inputOriginal').bind('input propertychange', function() {
+				$.ajax({
+					type : "GET",
+					url : "/fanyi",
+					dataType : "json",
+					data : {
+						query:$('#inputOriginal').val()
+					},
+					success : function(data) {
+						if(data.code == 200){
+							$('#output').val(data.res);
+						}else{
+							mui.toast("网络请求失败");
+						}
+						
+					},
+					error : function(e) {
+						mui.toast("网络请求失败");
+					}
+
+				});
+			});
+		});
+	</script>
+</body>
+</html>
