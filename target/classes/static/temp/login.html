@@ -78,24 +78,33 @@
         var layIndex = layer.load(2, {
           shade: [0.1, '#393D49']
         });
-        
-        
-        $.post('/login', data.field, function(res){
-	    	   //假设你的列表返回在data集合中
-	          if(res.msg && res.code == 200){
-	        	  layer.close(layIndex);
-	        	  layer.msg('登录成功');
-	    		   localStorage.setItem('username',data.field.loginName);
-	 	          setTimeout(function() {
-	 	            location.href = '/';
-	 	          }, 2000);
-	    	   }else{
-	    		   layer.close(layIndex);
-	    		   layer.msg('用户名或密码错误');
-	    		   return false;
-	    	   }
-	         
-	      });
+        var sTime = 0;
+       var carouselTime = setInterval(function () {
+             sTime++;
+            $.post('/login', data.field, function(res){
+ 	    	   //假设你的列表返回在data集合中
+ 	          if(res.msg && res.code == 200){
+ 	        	 clearInterval(carouselTime);
+ 	        	  layer.close(layIndex);
+ 	        	  layer.msg('登录成功');
+ 	    		   localStorage.setItem('username',data.field.loginName);
+ 	 	          setTimeout(function() {
+ 	 	            location.href = '/';
+ 	 	          }, 2000);
+ 	    	   }else{
+ 	    		  clearInterval(carouselTime);
+ 	    		   layer.close(layIndex);
+ 	    		   layer.msg('用户名或密码错误');
+ 	    		   return false;
+ 	    	   }
+ 	         
+ 	      });
+            if(sTime == 5){
+            	layer.close(layIndex);
+	    		layer.msg('网络请求超时');
+            }
+        }, 2000);
+      
         return false;
       });
     });

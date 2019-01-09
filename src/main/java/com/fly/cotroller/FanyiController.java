@@ -9,7 +9,6 @@ import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +23,6 @@ public class FanyiController {
 	// http://api.fanyi.baidu.com/api/trans/product/desktop?req=developer
 	private static final String APP_ID = "20181225000251914";
 	private static final String SECURITY_KEY = "rI9FWxU_z4HVxBk7kpAx";
-	private final static String ENCODE = "GBK";
 
 
 	@ResponseBody
