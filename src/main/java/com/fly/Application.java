@@ -20,9 +20,9 @@ public class Application {
 	@Bean
 	public MultipartConfigElement multipartConfigElement() {
 		MultipartConfigFactory factory = new MultipartConfigFactory();
-		// ÎÄ¼þ×î´ó
+		// ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ 
 		factory.setMaxFileSize("102400KB"); // KB,MB
-		/// ÉèÖÃ×ÜÉÏ´«Êý¾Ý×Ü´óÐ¡
+		/// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü´ï¿½Ð¡
 		factory.setMaxRequestSize("102400KB");
 		return factory.createMultipartConfig();
 	}
